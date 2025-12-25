@@ -38,6 +38,13 @@
             margin: 20px 0;
             display: inline-block;
         }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin-top: 20px;
+        }
         .button {
             display: inline-block;
             background: white;
@@ -47,15 +54,38 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 18px;
-            margin-top: 20px;
             transition: transform 0.2s;
+            min-width: 220px;
         }
         .button:hover {
             transform: scale(1.05);
         }
-        .loading {
-            margin-top: 20px;
+        .button.secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin: 20px 0;
+            opacity: 0.7;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.5);
+        }
+        .divider span {
+            padding: 0 15px;
+            font-size: 14px;
+        }
+        .error {
             opacity: 0.8;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -64,9 +94,16 @@
         <h1>🐘</h1>
         <h2>You've been invited to join a Bites competition!</h2>
         <div class="code" id="code">Loading...</div>
-        <a href="#" class="button" id="openAppButton">Open in Bites</a>
-        <p class="loading" id="status">Don't have the app?</p>
-        <a href="https://apps.apple.com/app/id6756226780" class="button" id="appStoreButton" style="background: transparent; border: 2px solid white; color: white;">Get Bites on App Store</a>
+
+        <div class="buttons" id="buttonContainer">
+            <a href="#" class="button" id="openAppButton">Open in Bites</a>
+
+            <div class="divider"><span>or</span></div>
+
+            <a href="https://apps.apple.com/app/id6756226780" class="button secondary">Download Bites</a>
+        </div>
+
+        <p class="error" id="error" style="display: none;"></p>
     </div>
 
     <script>
@@ -80,9 +117,9 @@
             const appUrl = 'bites://join/' + code;
             document.getElementById('openAppButton').href = appUrl;
         } else {
-            document.getElementById('status').textContent = 'Invalid invitation link';
-            document.getElementById('openAppButton').style.display = 'none';
-            document.getElementById('appStoreButton').style.display = 'none';
+            document.getElementById('error').textContent = 'Invalid invitation link';
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('buttonContainer').style.display = 'none';
         }
     </script>
 </body>
