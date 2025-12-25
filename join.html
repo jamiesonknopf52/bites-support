@@ -64,8 +64,9 @@
         <h1>🐘</h1>
         <h2>You've been invited to join a Bites competition!</h2>
         <div class="code" id="code">Loading...</div>
-        <p class="loading" id="status">Opening Bites app...</p>
-        <a href="#" class="button" id="appStoreButton" style="display:none;">Get Bites on App Store</a>
+        <a href="#" class="button" id="openAppButton">Open in Bites</a>
+        <p class="loading" id="status">Don't have the app?</p>
+        <a href="https://apps.apple.com/app/id6756226780" class="button" id="appStoreButton" style="background: transparent; border: 2px solid white; color: white;">Get Bites on App Store</a>
     </div>
 
     <script>
@@ -76,21 +77,12 @@
         document.getElementById('code').textContent = code || 'No code provided';
 
         if (code) {
-            // Try to open the app
             const appUrl = 'bites://join/' + code;
-            const appStoreUrl = 'https://apps.apple.com/app/id6756226780';
-
-            // Attempt to open the app
-            window.location.href = appUrl;
-
-            // After a delay, show the App Store button if app didn't open
-            setTimeout(function() {
-                document.getElementById('status').textContent = "Don't have Bites yet?";
-                document.getElementById('appStoreButton').style.display = 'inline-block';
-                document.getElementById('appStoreButton').href = appStoreUrl;
-            }, 2500);
+            document.getElementById('openAppButton').href = appUrl;
         } else {
             document.getElementById('status').textContent = 'Invalid invitation link';
+            document.getElementById('openAppButton').style.display = 'none';
+            document.getElementById('appStoreButton').style.display = 'none';
         }
     </script>
 </body>
