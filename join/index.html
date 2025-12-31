@@ -69,6 +69,29 @@
         .button:hover {
             transform: scale(1.05);
         }
+        .button.secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin: 15px 0;
+            opacity: 0.7;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.5);
+        }
+        .divider span {
+            padding: 0 15px;
+            font-size: 14px;
+        }
         .manual-code {
             margin-top: 30px;
             padding-top: 20px;
@@ -88,17 +111,12 @@
         <h2>You've been invited to join a Bites competition!</h2>
         <div class="code" id="code">Loading...</div>
 
-        <p class="instructions">
-            If you have Bites installed, this page should have opened the app automatically.
-        </p>
-
         <div class="buttons" id="buttonContainer">
-            <a href="https://apps.apple.com/app/id6756226780" class="button">Get Bites on the App Store</a>
-        </div>
+            <a href="#" class="button" id="openAppButton">Open in Bites</a>
 
-        <div class="manual-code" id="manualInstructions">
-            <p>Already have the app? Open Bites and enter this code manually:</p>
-            <strong id="codeRepeat"></strong>
+            <div class="divider"><span>don't have the app?</span></div>
+
+            <a href="https://apps.apple.com/app/id6756226780" class="button secondary">Download Bites</a>
         </div>
 
         <p class="error" id="error" style="display: none;"></p>
@@ -110,13 +128,13 @@
         const code = urlParams.get('code') || '';
 
         document.getElementById('code').textContent = code || 'No code provided';
-        document.getElementById('codeRepeat').textContent = code || '';
 
-        if (!code) {
+        if (code) {
+            document.getElementById('openAppButton').href = 'bites://join/' + code;
+        } else {
             document.getElementById('error').textContent = 'Invalid invitation link';
             document.getElementById('error').style.display = 'block';
             document.getElementById('buttonContainer').style.display = 'none';
-            document.getElementById('manualInstructions').style.display = 'none';
         }
     </script>
 </body>
