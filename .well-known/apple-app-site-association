@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "J4S5L84965.com.knopfs.Bites",
+        "paths": [
+          "/bites-support/join",
+          "/bites-support/join/*"
+        ]
+      }
+    ]
+  }
+}

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join Bites Competition</title>
+    <meta name="apple-itunes-app" content="app-id=6756226780">
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -38,6 +39,12 @@
             margin: 20px 0;
             display: inline-block;
         }
+        .instructions {
+            font-size: 16px;
+            opacity: 0.9;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
         .buttons {
             display: flex;
             flex-direction: column;
@@ -51,37 +58,23 @@
             color: #667eea;
             padding: 15px 40px;
             border-radius: 30px;
+            border: 2px solid white;
             text-decoration: none;
             font-weight: bold;
             font-size: 18px;
             transition: transform 0.2s;
             min-width: 220px;
+            box-sizing: border-box;
         }
         .button:hover {
             transform: scale(1.05);
         }
-        .button.secondary {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-        }
-        .divider {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            margin: 20px 0;
-            opacity: 0.7;
-        }
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: rgba(255,255,255,0.5);
-        }
-        .divider span {
-            padding: 0 15px;
+        .manual-code {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.3);
             font-size: 14px;
+            opacity: 0.8;
         }
         .error {
             opacity: 0.8;
@@ -95,12 +88,17 @@
         <h2>You've been invited to join a Bites competition!</h2>
         <div class="code" id="code">Loading...</div>
 
+        <p class="instructions">
+            If you have Bites installed, this page should have opened the app automatically.
+        </p>
+
         <div class="buttons" id="buttonContainer">
-            <a href="#" class="button" id="openAppButton">Open in Bites</a>
+            <a href="https://apps.apple.com/app/id6756226780" class="button">Get Bites on the App Store</a>
+        </div>
 
-            <div class="divider"><span>or</span></div>
-
-            <a href="https://apps.apple.com/app/id6756226780" class="button secondary">Download Bites</a>
+        <div class="manual-code" id="manualInstructions">
+            <p>Already have the app? Open Bites and enter this code manually:</p>
+            <strong id="codeRepeat"></strong>
         </div>
 
         <p class="error" id="error" style="display: none;"></p>
@@ -112,14 +110,13 @@
         const code = urlParams.get('code') || '';
 
         document.getElementById('code').textContent = code || 'No code provided';
+        document.getElementById('codeRepeat').textContent = code || '';
 
-        if (code) {
-            const appUrl = 'bites://join/' + code;
-            document.getElementById('openAppButton').href = appUrl;
-        } else {
+        if (!code) {
             document.getElementById('error').textContent = 'Invalid invitation link';
             document.getElementById('error').style.display = 'block';
             document.getElementById('buttonContainer').style.display = 'none';
+            document.getElementById('manualInstructions').style.display = 'none';
         }
     </script>
 </body>
